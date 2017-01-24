@@ -54,54 +54,63 @@
       .en-markup-crop-options div div:first-of-type {
       	margin-left: 0px !important;
       }
-  </style></head>
+    </style></head>
 
-  <body>
+    <body>
 
-  	<div class="site-wrapper">
+     <div class="site-wrapper">
 
-  		<div class="site-wrapper-inner">
+      <div class="site-wrapper-inner">
 
-  			<div class="cover-container">  				
+       <div class="cover-container">  				
 
-  				<div class="container-fluid">
-  					<h1 class="cover-heading">Ящики:</h1>
-  					<?php
-  					$servername = "localhost";
-  					$username = "marsdotco0_base1";
-  					$password = "defolt";
-  					$dbname = "marsdotco0_base1";
+        <div class="container-fluid">
 
-// Create connection
-  					$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-  					if ($conn->connect_error) {
-  						die("Connection failed: " . $conn->connect_error);
-  					} 
+         <?php        
 
-  					$sql = "SELECT * FROM products";
-  					$result = $conn->query($sql);
+         
+         $servername = "localhost";
+         $username = "marsdotco0_base1";
+         $password = "defolt";
+         $dbname = "marsdotco0_base1";
+         $id =$_GET['id'];
+         $name = $_GET['name'];
 
-  					if ($result->num_rows > 0) {
-  						echo "<table class=\"table table-bordered table-condensed\"><thead><tr><th>ID</th><th>Name</th><th>@</th></tr></thead><tbody>";
-    // output data of each row
-  						while($row = $result->fetch_assoc()) {
-  							echo "<tr><td>".$row["_id"]."</td><td><a href=\"boxatribut.php?id=".$row["_id"]."&name=".$row[name]."\"/>".$row["name"]."</td><td><button name=".$row["_id"]." id=\"button\" class=\"btn btn-default btn-sm\" type=\"button\"><i class=\"glyphicon glyphicon-list\"></i></button>    </td></tr>";
-  						}
-  						echo "</tbody></table>";
-  					} else {
-  						echo "0 results";
-  					}
-  					$conn->close();
-  					?>
+         $conn = new mysqli($servername, $username, $password, $dbname);
 
-  				</div>  				
+         if ($conn->connect_error) {
+         die("Connection failed: " . $conn->connect_error);
+       } 
+ 
+      echo "<h1 class=\"cover-heading\">Ящик ".$name."</h1>";  
+      echo "<p class=\"lead\">Рейки</p>";
 
-  			</div>
+ 
+     $sql = "select name,size,length,count from battens join products on n_id = products._id where n_id =".$id;
+     $result = $conn->query($sql);
 
-  		</div>
+     if ($result->num_rows > 0) {
 
-  	</div>
+     echo "<table class=\"table table-bordered table-condensed\"><thead><tr><th>Size</th><th>Length</th><th>Count</th><th>@</th></tr></thead><tbody>";
+
+     while($row = $result->fetch_assoc()) {
+     echo "<tr><td>".$row["size"]."</td><td>".$row["length"]."</td><td>".$row["count"]."</td><td><button name=".$row["_id"]." id=\"button\" class=\"btn btn-default btn-sm\" type=\"button\"><i class=\"glyphicon glyphicon-list\"></i></button>    </td></tr>";
+   }
+   echo "</tbody></table>";
+ } else {
+ echo "0 results";
+}
+
+$conn->close();
+?>
+
+</div>  				
+
+</div>
+
+</div>
+
+</div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -110,24 +119,8 @@
     <script src="./index_files/bootstrap.min.js"></script>
     <script src="./index_files/docs.min.js"></script>
 
-    <script type="text/javascript">
-
-    	function rowclick(){
-
-    		var id = this.getAttribute("name");
-
-    		alert(id);
-
-    	}
-
-    	var buttons = document.getElementsByTagName("button");
-
-    	for (var i = 0; i < buttons.length; i++) {
-    		buttons[i].onclick = rowclick;
-    	}
-
-    </script>
-</body></html>
+    
+  </body></html>
 
 
 
