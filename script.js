@@ -63,3 +63,21 @@ button1.onclick = calculate;
 
 var button2 = document.getElementById('button2');
 button2.onclick = calculate;
+
+
+
+
+function rowclick(){
+
+	var id = this.getAttribute("name");
+
+	alert(id);
+
+}
+
+var buttons = document.getElementsByTagName("button");
+
+for (var i = 0; i < buttons.length; i++) {
+	buttons[i].onclick = rowclick;
+}
+
